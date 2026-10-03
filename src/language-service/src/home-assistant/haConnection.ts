@@ -1285,13 +1285,15 @@ export class HaConnection implements IHaConnection {
 
       return resp.data;
     } catch (error) {
-      console.error(`Error calling API ${api}:`, error);
+      // 🛡️ Sentinel: Do not log the entire error object which might leak sensitive token
+      // Axios errors contain the config object which includes the Authorization header.
+      console.error(`Error calling API ${api}:`, error.message || "Unknown error");
       
       // Extract error information for better error messages
       if (error.response) {
         // The request was made and the server responded with a status code outside of 2xx range
         console.error(`Response status: ${error.response.status}`);
-        console.error(`Response data:`, error.response.data);
+        console.error("Response data:", error.response.data);
         
         // Return the error data to allow the caller to handle it
         return error.response.data;
@@ -1304,11 +1306,8 @@ export class HaConnection implements IHaConnection {
           if (error.message) {
             return { error: error.message };
           }
-          try {
-            return { error: JSON.stringify(error) };
-          } catch {
-            return { error: "Unknown error occurred" };
-          }
+          // Do not stringify the entire error object to avoid leaking secrets
+          return { error: "Unknown error object format" };
         }
         return { error: String(error) };
       }
@@ -1337,7 +1336,8 @@ export class HaConnection implements IHaConnection {
       );
       console.log(JSON.stringify(resp.data, null, 1));
     } catch (error) {
-      console.error(error);
+      // 🛡️ Sentinel: Do not log the entire error object which might leak sensitive token
+      console.error(error.message || "Unknown error");
     }
     return Promise.resolve();
   };
