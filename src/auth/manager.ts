@@ -184,8 +184,10 @@ export class AuthManager {
     // If no URL is configured, ask for it
     if (!hostUrl) {
       hostUrl = await vscode.window.showInputBox({
+        title: "Home Assistant Authentication",
         prompt: "Enter your Home Assistant instance URL",
         placeHolder: "http://homeassistant.local:8123",
+        ignoreFocusOut: true,
         validateInput: (input) => {
           // Basic URL validation
           try {
@@ -237,9 +239,11 @@ export class AuthManager {
     // If still no token, prompt user to enter one
     if (!token) {
       token = await vscode.window.showInputBox({
+        title: "Home Assistant Authentication",
         prompt: "Enter your Home Assistant Long-Lived Access Token",
         password: true,
-        placeHolder: "eyJhbGci..."
+        placeHolder: "eyJhbGci...",
+        ignoreFocusOut: true,
       });
       
       if (token) {

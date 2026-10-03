@@ -54,6 +54,7 @@ export async function repairAuthConfiguration(context: vscode.ExtensionContext):
       messages.push("No Home Assistant instance URL found. Please set one using 'Manage Home Assistant Authentication'.");
       // Prompt to set URL if not found at all
       const newUrl = await vscode.window.showInputBox({
+        title: "Home Assistant Authentication",
         prompt: "Enter your Home Assistant instance URL (e.g., http://homeassistant.local:8123)",
         placeHolder: "http://homeassistant.local:8123",
         ignoreFocusOut: true,
