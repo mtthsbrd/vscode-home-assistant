@@ -86,9 +86,10 @@ export class HomeAssistantConfiguration {
     }
     results = await Promise.all(results);
 
-    let allIncludes = {};
+    const allIncludes = {};
     for (const result of results) {
-      allIncludes = { ...allIncludes, ...result };
+      // ⚡ Bolt optimization: Use Object.assign for O(N) mutation instead of O(N^2) object spread
+      Object.assign(allIncludes, result);
     }
     return allIncludes;
   };
@@ -100,9 +101,10 @@ export class HomeAssistantConfiguration {
     }
     results = await Promise.all(results);
 
-    let allScripts = {};
+    const allScripts = {};
     for (const result of results) {
-      allScripts = { ...allScripts, ...result };
+      // ⚡ Bolt optimization: Use Object.assign for O(N) mutation instead of O(N^2) object spread
+      Object.assign(allScripts, result);
     }
     return allScripts;
   };
