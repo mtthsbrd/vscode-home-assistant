@@ -30,10 +30,16 @@ if (fs.readdirSync(outputFolder).length > 0 && process.argv[2] === "--quick") {
 } else {
   console.log("Generating schemas...");
   const pathToSchemaMappings: PathToSchemaMapping[] = JSON.parse(filecontents);
+
+  // Find where the actual .ts files are located. When this is compiled to dist/,
+  // __dirname will be dist/schemas, but the .ts files are in src/schemas.
+  const isDistFolder = __dirname.includes('dist');
+  const srcSchemasPath = isDistFolder ? path.join(__dirname, '..', '..', 'src', 'schemas') : __dirname;
+
   pathToSchemaMappings.forEach((mapping) => {
     console.log(mapping.path);
     const program = TJS.getProgramFromFiles(
-      [resolve(path.join(__dirname, mapping.tsFile))],
+      [resolve(path.join(srcSchemasPath, mapping.tsFile))],
       compilerOptions,
     );
     const schema = TJS.generateSchema(program, mapping.fromType, settings);

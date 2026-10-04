@@ -76,8 +76,8 @@ action:
     );
     
     console.log(`Action validation working correctly:
-      - script.turn_on error: ${scriptTurnOnError ? 'Yes' : 'No'}
-      - script.activate_sitting_room_scene error: ${scriptActivateError ? 'Yes' : 'No'}
+      - script.turn_on error: ${scriptTurnOnError ? "Yes" : "No"}
+      - script.activate_sitting_room_scene error: ${scriptActivateError ? "Yes" : "No"}
     `);
     
     // Verify the document has the expected content
