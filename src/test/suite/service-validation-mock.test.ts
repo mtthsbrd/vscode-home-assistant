@@ -279,7 +279,7 @@ group:
     // We should have exactly 2 unknown action diagnostics (not including the one in group: section)
     assert.strictEqual(actionDiagnostics.length, 2, 
       `Expected 2 unknown action diagnostics, got ${actionDiagnostics.length}. ` +
-      `The third one (unknown.service) should be ignored because it's not in an automation/script context.`);
+      "The third one (unknown.service) should be ignored because it's not in an automation/script context.");
 
     // Check that the diagnostics are for the correct actions
     const expectedUnknownActions = [
