@@ -2617,10 +2617,15 @@ export class HomeAssistantLanguageService {
     }
     results = await Promise.all(results);
 
-    let definitions: any = [];
+    const definitions: any = [];
     for (const result of results) {
       if (result) {
-        definitions = definitions.concat(result);
+        // ⚡ Bolt optimization: Use push for O(1) insertion instead of O(N^2) concat
+        if (Array.isArray(result)) {
+          definitions.push(...result);
+        } else {
+          definitions.push(result);
+        }
       }
     }
 

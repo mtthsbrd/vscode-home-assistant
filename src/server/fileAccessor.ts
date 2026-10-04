@@ -109,7 +109,8 @@ export class VsCodeFileAccessor implements FileAccessor {
               filelist = await this.getFilesInFolder(filePath, filelist, visitedDirs);
             } else {
               // It's a file symlink, add it to the list
-              filelist = filelist.concat(filePath);
+              // ⚡ Bolt optimization: Use push for O(1) insertion instead of O(N^2) concat
+              filelist.push(filePath);
             }
           } catch {
             // Broken symlink or permission issue, skip it
@@ -118,7 +119,8 @@ export class VsCodeFileAccessor implements FileAccessor {
         } else if (stat.isDirectory() && !file.startsWith(".")) {
           filelist = await this.getFilesInFolder(filePath, filelist, visitedDirs);
         } else if (stat.isFile()) {
-          filelist = filelist.concat(filePath);
+          // ⚡ Bolt optimization: Use push for O(1) insertion instead of O(N^2) concat
+          filelist.push(filePath);
         }
       }
     } catch {
