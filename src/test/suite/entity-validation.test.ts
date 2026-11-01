@@ -143,7 +143,7 @@ automation:
         `Diagnostic found on commented line: ${line.trim()}`);
     }
     
-    console.log(`Entity validation correctly skipped commented lines`);
+    console.log("Entity validation correctly skipped commented lines");
     
     // Close the document
     await vscode.commands.executeCommand("workbench.action.closeActiveEditor");
