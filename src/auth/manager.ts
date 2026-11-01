@@ -186,6 +186,7 @@ export class AuthManager {
       hostUrl = await vscode.window.showInputBox({
         prompt: "Enter your Home Assistant instance URL",
         placeHolder: "http://homeassistant.local:8123",
+        ignoreFocusOut: true,
         validateInput: (input) => {
           // Basic URL validation
           try {
@@ -239,7 +240,8 @@ export class AuthManager {
       token = await vscode.window.showInputBox({
         prompt: "Enter your Home Assistant Long-Lived Access Token",
         password: true,
-        placeHolder: "eyJhbGci..."
+        placeHolder: "eyJhbGci...",
+        ignoreFocusOut: true
       });
       
       if (token) {

@@ -64,6 +64,7 @@ async function setToken(context: vscode.ExtensionContext): Promise<void> {
     prompt: "Enter your Home Assistant instance URL",
     placeHolder: "http://homeassistant.local:8123",
     value: currentUrl || "http://homeassistant.local:8123", // Pre-fill default if currentUrl is empty
+    ignoreFocusOut: true,
     validateInput: (input) => {
       // Basic URL validation
       try {
@@ -110,7 +111,8 @@ async function setToken(context: vscode.ExtensionContext): Promise<void> {
   const token = await vscode.window.showInputBox({
     prompt: "Enter your Home Assistant Long-Lived Access Token",
     password: true,
-    placeHolder: "eyJhbGci..."
+    placeHolder: "eyJhbGci...",
+    ignoreFocusOut: true
   });
   
   if (token) {
@@ -286,6 +288,7 @@ async function setInstanceUrl(context: vscode.ExtensionContext): Promise<void> {
     prompt: "Enter your Home Assistant instance URL",
     placeHolder: "http://homeassistant.local:8123",
     value: currentUrl || "http://homeassistant.local:8123", // Pre-fill default if currentUrl is empty
+    ignoreFocusOut: true,
     validateInput: (input) => {
       // Basic URL validation
       try {
